@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notkutusu/constant/color_utility.dart';
 import 'package:notkutusu/constant/text_style.dart';
+import 'package:notkutusu/functions/navi_func.dart';
+import 'package:notkutusu/homepage/home_page.dart';
 
 //* Global controllers hepsi için baştan tanımlamaya gerek kalmadı
 final userNameController = TextEditingController();
@@ -23,6 +25,7 @@ class GirisYap extends StatelessWidget with ColorsUtility, LoginWidgetsTextStyle
         String password = passwordController.text;
         print('$userNameText: $username');
         print('$password: $password');
+        NavigatorPage(context, page: const HomePage());
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: appBlue,

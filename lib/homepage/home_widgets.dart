@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notkutusu/constant/color_utility.dart';
 import 'package:notkutusu/constant/icon_utility.dart';
 
 class HomeTest extends StatefulWidget {
@@ -8,48 +9,61 @@ class HomeTest extends StatefulWidget {
   State<HomeTest> createState() => _HomeTestState();
 }
 
-class _HomeTestState extends State<HomeTest> {
+class _HomeTestState extends State<HomeTest> with ColorsUtility, IconUtility {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(),
       body: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            InkWell(
-              onTap: () {},
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  Card(
-                    shape: const CircleBorder(),
-                    child: Container(
-                        color: Colors.blue,
-                        height: screenHeight * 0.07,
-                        width: screenWidth * 0.41,
-                        child: const Center(
-                            child: Text(
-                          'Kaydedilenler',
-                          style: TextStyle(color: Colors.red),
-                        ))),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 45),
-                    child: Card(
-                      child: Container(
-                          color: Colors.red,
-                          width: screenWidth * 0.41,
-                          height: screenHeight * 0.15,
-                          child: const Text('')),
+        child: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: () {},
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: [
+                    Card(
+                        child: Container(
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: appBlue),
+                            height: screenHeight * 0.07,
+                            width: screenWidth * 0.41,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text('Kaydedilenler',
+                                    style: TextStyle(color: whiteColor, fontSize: 25, fontWeight: FontWeight.bold)),
+                              ),
+                            ))),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 45),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(10.0), // İstenen yuvarlama miktarını burada ayarlayabilirsiniz
+                        ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                                color: normalBlue,
+                                width: screenWidth * 0.41,
+                                height: screenHeight * 0.15,
+                                child: const Text('')),
+                            Container(
+                              child: const Icon(Icons.stars, size: 55),
+                            )
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
