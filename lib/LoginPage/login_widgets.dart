@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:notkutusu/app_page.dart';
 import 'package:notkutusu/constant/color_utility.dart';
 import 'package:notkutusu/constant/text_style.dart';
 import 'package:notkutusu/functions/navi_func.dart';
-import 'package:notkutusu/homepage/home_page.dart';
 
 //* Global controllers hepsi için baştan tanımlamaya gerek kalmadı
 final userNameController = TextEditingController();
@@ -14,8 +14,7 @@ const passwordText = 'Şifre';
 const emailText = '@st.biruni.edu.tr';
 const loginText = 'Giriş Yap';
 
-class GirisYap extends StatelessWidget
-    with ColorsUtility, LoginWidgetsTextStyle {
+class GirisYap extends StatelessWidget with ColorsUtility, LoginWidgetsTextStyle {
   GirisYap({super.key});
 
   @override
@@ -26,7 +25,7 @@ class GirisYap extends StatelessWidget
         String password = passwordController.text;
         print('$userNameText: $username');
         print('$password: $password');
-        NavigatorPage(context, page: const HomePage());
+        NavigatorPage(context, page: const AppPage());
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: appBlue,
@@ -65,8 +64,7 @@ class Sifre extends StatelessWidget with ColorsUtility {
 }
 
 //* Kullini Adi
-class KullaniciAdi extends StatelessWidget
-    with ColorsUtility, LoginWidgetsTextStyle {
+class KullaniciAdi extends StatelessWidget with ColorsUtility, LoginWidgetsTextStyle {
   KullaniciAdi({super.key});
 
   @override
@@ -92,8 +90,7 @@ class KullaniciAdi extends StatelessWidget
 
 //* Appbar Text
 class AppBarText extends StatefulWidget {
-  const AppBarText(
-      {super.key, required this.textType, required this.appBarStyle});
+  const AppBarText({super.key, required this.textType, required this.appBarStyle});
 
   final String textType;
   final TextStyle appBarStyle;
