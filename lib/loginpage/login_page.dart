@@ -12,11 +12,14 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with ColorsUtility, AppBarTextStyle {
+class _LoginPageState extends State<LoginPage>
+    with ColorsUtility, AppBarTextStyle {
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height; //* Cihaz uygunluğu
-    const double topMarginPercentage = 0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
+    final double screenHeight =
+        MediaQuery.of(context).size.height; //* Cihaz uygunluğu
+    const double topMarginPercentage =
+        0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
 
     //* Text isim değişkenleri
     const String universtyName = "Biruni Üniversitesi";
@@ -40,29 +43,38 @@ class _LoginPageState extends State<LoginPage> with ColorsUtility, AppBarTextSty
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                      margin: EdgeInsets.only(top: screenHeight * topMarginPercentage),
+                      margin: EdgeInsets.only(
+                          top: screenHeight * topMarginPercentage),
                       child: Column(children: [
-                        AppBarText(textType: universtyName, appBarStyle: titleStyle),
-                        AppBarText(textType: applicationName, appBarStyle: subTitleStyle),
+                        AppBarText(
+                            textType: universtyName, appBarStyle: titleStyle),
+                        AppBarText(
+                            textType: applicationName,
+                            appBarStyle: subTitleStyle),
                       ]))
                 ],
               ))),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 120, width: 150, child: Image.asset('assets/biruni.logo.jpg')),
-            ],
-          ),
-          KullaniciAdi(),
-          const SizedBox(height: 15),
-          Sifre(),
-          const SizedBox(height: 15),
-          GirisYap(),
-          const SizedBox(height: 10),
-          const SignUp(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                    height: 120,
+                    width: 150,
+                    child: Image.asset('assets/biruni.logo.jpg')),
+              ],
+            ),
+            KullaniciAdi(),
+            const SizedBox(height: 15),
+            Sifre(),
+            const SizedBox(height: 15),
+            GirisYap(),
+            const SizedBox(height: 10),
+            const SignUp(),
+          ],
+        ),
       ),
     );
   }
