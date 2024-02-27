@@ -2,150 +2,66 @@ import 'package:flutter/material.dart';
 import 'package:notkutusu/constant/color_utility.dart';
 import 'package:notkutusu/constant/icon_utility.dart';
 
-class HomeTest extends StatefulWidget {
-  const HomeTest({super.key});
+class HomePageCard extends StatelessWidget with ColorsUtility {
+  HomePageCard({super.key, required this.cardName, required this.callback, required this.cardIcon});
+  String cardName;
+  VoidCallback callback;
+  Icon cardIcon;
 
-  @override
-  State<HomeTest> createState() => _HomeTestState();
-}
-
-class _HomeTestState extends State<HomeTest> with ColorsUtility, IconUtility {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 15),
-                    child: DersAra(),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        InkWell(
+          onTap: callback,
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              Card(
+                child: Container(
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: appBlue),
+                  height: screenHeight * 0.07,
+                  width: screenWidth * 0.41,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Text(cardName,
+                          style: TextStyle(color: whiteColor, fontSize: 25, fontWeight: FontWeight.bold)),
+                    ),
                   ),
-                  NotAraButton(),
-                ],
+                ),
               ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Stack(
-                        alignment: Alignment.topCenter,
-                        children: [
-                          Card(
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: appBlue),
-                                  height: screenHeight * 0.07,
-                                  width: screenWidth * 0.41,
-                                  child: Center(
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      child: Text('Kaydedilenler',
-                                          style: TextStyle(
-                                              color: whiteColor,
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold)),
-                                    ),
-                                  ))),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 45),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    10.0), // İstenen yuvarlama miktarını burada ayarlayabilirsiniz
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Container(
-                                      color: normalBlue,
-                                      width: screenWidth * 0.41,
-                                      height: screenHeight * 0.15,
-                                      child: const Text('')),
-                                  Container(
-                                    child: Icon(Icons.stars,
-                                        size: 55, color: whiteColor),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+              Padding(
+                padding: const EdgeInsets.only(top: 45),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0), // İstenen yuvarlama miktarını burada ayarlayabilirsiniz
+                  ),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                          color: normalBlue,
+                          width: screenWidth * 0.41,
+                          height: screenHeight * 0.15,
+                          child: Image.network(
+                            'https://img.pixers.pics/pho_wat(s3:700/FO/40/38/06/35/700_FO40380635_44897dfb180569c91098c06ce36a60de.jpg,700,469,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,419,jpg)/cikartmalar-eski-tugla-duvar-dokusu-arkaplan.jpg.jpg',
+                            width: screenWidth * 0.41, // İstenen genişlik
+                            height: screenHeight * 0.15, // İstenen yükseklik
+                            fit: BoxFit.cover, // İmgenin nasıl sığacağını belirleyen fit özell
+                          )),
+                      Container(child: cardIcon)
+                    ],
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Stack(
-                        alignment: Alignment.topCenter,
-                        children: [
-                          Card(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: appBlue),
-                              height: screenHeight * 0.07,
-                              width: screenWidth * 0.41,
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 10),
-                                  child: Text('Not Ekle',
-                                      style: TextStyle(
-                                          color: whiteColor,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 45),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    10.0), // İstenen yuvarlama miktarını burada ayarlayabilirsiniz
-                              ),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Container(
-                                      color: normalBlue,
-                                      width: screenWidth * 0.41,
-                                      height: screenHeight * 0.15,
-                                      child: const Text('')),
-                                  Container(
-                                      child: Icon(Icons.control_point,
-                                          size: 55, color: whiteColor))
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -186,8 +102,6 @@ class AccountIcon extends StatelessWidget with IconUtility, ColorsUtility {
 
 //* Ders Ara Text
 
-const dersAraText = 'Ders Ara';
-
 class DersAra extends StatefulWidget {
   const DersAra({super.key});
 
@@ -196,6 +110,8 @@ class DersAra extends StatefulWidget {
 }
 
 class _DersAraState extends State<DersAra> with ColorsUtility {
+  final String dersAraText = 'Ders Ara';
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -233,7 +149,7 @@ class _NotAraButtonState extends State<NotAraButton> with ColorsUtility {
         foregroundColor: whiteColor,
         padding: const EdgeInsets.symmetric(horizontal: 155, vertical: 15),
       ),
-      child: Text('Ders Ara'),
+      child: const Text('Ders Ara'),
     );
   }
 }

@@ -47,22 +47,24 @@ class _LoginPageState extends State<LoginPage> with ColorsUtility, AppBarTextSty
                       ]))
                 ],
               ))),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 120, width: 150, child: Image.asset('assets/biruni.logo.jpg')),
-            ],
-          ),
-          KullaniciAdi(),
-          const SizedBox(height: 15),
-          Sifre(),
-          const SizedBox(height: 15),
-          GirisYap(),
-          const SizedBox(height: 10),
-          const SignUp(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 120, width: 150, child: Image.asset('assets/biruni.logo.jpg')),
+              ],
+            ),
+            KullaniciAdi(),
+            const SizedBox(height: 15),
+            Sifre(),
+            const SizedBox(height: 15),
+            GirisYap(),
+            const SizedBox(height: 10),
+            const SignUp(),
+          ],
+        ),
       ),
     );
   }
