@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
+final userNameController = TextEditingController();
+final passwordController = TextEditingController();
+
 class GirisYap extends StatelessWidget {
-  GirisYap({super.key});
-  final userNameController = TextEditingController();
-  final passwordNameController = TextEditingController();
+  const GirisYap({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        String username = KullaniciAdi().userNameController.text;
-        String password = Sifre().passwordController.text;
+        String username = userNameController.text;
+        String password = passwordController.text;
         print('Kullanıcı Adı: $username');
         print('Şifre: $password');
       },
@@ -28,9 +29,7 @@ class GirisYap extends StatelessWidget {
 }
 
 class Sifre extends StatelessWidget {
-  Sifre({super.key});
-
-  final passwordController = TextEditingController();
+  const Sifre({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +52,8 @@ class Sifre extends StatelessWidget {
 }
 
 class KullaniciAdi extends StatelessWidget {
-  KullaniciAdi({super.key});
+  const KullaniciAdi({super.key});
 
-  final userNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
