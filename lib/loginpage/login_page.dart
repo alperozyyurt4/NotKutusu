@@ -1,78 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:notkutusu/LoginPage/login_widgets.dart';
+import 'package:notkutusu/constant/color_utility.dart';
+import 'package:notkutusu/constant/text_style.dart';
+import 'package:notkutusu/functions/navi_func.dart';
 import 'package:notkutusu/loginpage/info_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with ColorsUtility, AppBarTextStyle {
   @override
   Widget build(BuildContext context) {
-    final double screenHeight =
-        MediaQuery.of(context).size.height; // Cihaz uygunluğu
-    final double topMarginPercentage =
-        0.05; // Üstten mesafe yüzde olarak ayarlanabilir
+    final double screenHeight = MediaQuery.of(context).size.height; //* Cihaz uygunluğu
+    const double topMarginPercentage = 0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
 
-    // Text isim değişkenleri
-    final String appBarText1 = "Biruni Üniversitesi";
-    final String appBarText2 = "Not Kutusu";
+    //* Text isim değişkenleri
+    const String universtyName = "Biruni Üniversitesi";
+    const String applicationName = "Not Kutusu";
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(screenHeight * 0.19),
-        child: AppBar(
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => InfoPage()),
-                );
-              },
-              icon: Icon(Icons.info),
-              color: Colors.white,
-              iconSize: 35.0,
-            )
-          ],
-          backgroundColor: Colors.blue[800],
-          flexibleSpace: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin:
-                    EdgeInsets.only(top: screenHeight * topMarginPercentage),
-                child: Column(
-                  children: [
-                    Text(
-                      appBarText1,
-                      style: TextStyle(fontSize: 26, color: Colors.white),
-                    ),
-                    Text(
-                      appBarText2,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+          preferredSize: Size.fromHeight(screenHeight * 0.19),
+          child: AppBar(
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      NavigatorPage(context, page: const InfoPage());
+                    },
+                    icon: const Icon(Icons.info),
+                    color: whiteColor,
+                    iconSize: 35.0)
+              ],
+              backgroundColor: appBlue,
+              flexibleSpace: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(top: screenHeight * topMarginPercentage),
+                      child: Column(children: [
+                        AppBarText(textType: universtyName, appBarStyle: titleStyle),
+                        AppBarText(textType: applicationName, appBarStyle: subTitleStyle),
+                      ]))
+                ],
+              ))),
       body: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                child: Image.asset('assets/biruni.logo.jpg'),
-                height: 120,
-                width: 150,
-              ),
+              SizedBox(height: 120, width: 150, child: Image.asset('assets/biruni.logo.jpg')),
             ],
           ),
+          KullaniciAdi(),
+          const SizedBox(height: 15),
+          Sifre(),
+          const SizedBox(height: 15),
+          GirisYap(),
+          const SizedBox(height: 10),
+          const SignUp(),
         ],
       ),
     );

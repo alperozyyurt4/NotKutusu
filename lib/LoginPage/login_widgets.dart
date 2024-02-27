@@ -1,59 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:notkutusu/constant/color_utility.dart';
+import 'package:notkutusu/constant/text_style.dart';
+import 'package:notkutusu/functions/navi_func.dart';
+import 'package:notkutusu/homepage/home_page.dart';
 
-class GirisYap extends StatelessWidget {
-  const GirisYap({
-    super.key,
-    required TextEditingController usernameController,
-    required TextEditingController passwordController,
-  })  : _usernameController = usernameController,
-        _passwordController = passwordController;
+//* Global controllers hepsi için baştan tanımlamaya gerek kalmadı
+final userNameController = TextEditingController();
+final passwordController = TextEditingController();
 
-  final TextEditingController _usernameController;
-  final TextEditingController _passwordController;
+//* Global textler
+const userNameText = 'Kullanıcı Adı';
+const passwordText = 'Şifre';
+const emailText = '@st.biruni.edu.tr';
+const loginText = 'Giriş Yap';
+
+class GirisYap extends StatelessWidget
+    with ColorsUtility, LoginWidgetsTextStyle {
+  GirisYap({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        String username = _usernameController.text;
-        String password = _passwordController.text;
-        print('Kullanıcı Adı: $username');
-        print('Şifre: $password');
+        String username = userNameController.text;
+        String password = passwordController.text;
+        print('$userNameText: $username');
+        print('$password: $password');
+        NavigatorPage(context, page: const HomePage());
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue[800],
-        foregroundColor: Colors.white,
+        backgroundColor: appBlue,
+        foregroundColor: whiteColor,
         padding: const EdgeInsets.symmetric(horizontal: 155, vertical: 15),
       ),
-      child: Text(
-        'Giriş Yap',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-      ),
+      child: Text(loginText, style: loginTextStyle),
     );
   }
 }
 
-class Sifre extends StatelessWidget {
-  const Sifre({
-    super.key,
-    required TextEditingController passwordController,
-  }) : _passwordController = passwordController;
-
-  final TextEditingController _passwordController;
+//* Şifre
+class Sifre extends StatelessWidget with ColorsUtility {
+  Sifre({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: TextField(
-        controller: _passwordController,
+        controller: passwordController,
         decoration: InputDecoration(
-          labelText: 'Şifre',
-          border: OutlineInputBorder(),
+          labelText: passwordText,
+          //* Textfield border
+          border: const OutlineInputBorder(),
+          //* Textfield a focus olunca border
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue, width: 2.0),
+            borderSide: BorderSide(color: normalBlue, width: 2.0),
           ),
-          prefixIcon: Icon(Icons.password),
+          prefixIcon: const Icon(Icons.password),
         ),
         obscureText: true,
       ),
@@ -61,33 +64,77 @@ class Sifre extends StatelessWidget {
   }
 }
 
-class KullaniciAdi extends StatelessWidget {
-  const KullaniciAdi({
-    super.key,
-    required TextEditingController usernameController,
-  }) : _usernameController = usernameController;
-
-  final TextEditingController _usernameController;
+//* Kullini Adi
+class KullaniciAdi extends StatelessWidget
+    with ColorsUtility, LoginWidgetsTextStyle {
+  KullaniciAdi({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 20, right: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: TextField(
-        controller: _usernameController,
+        controller: userNameController,
         decoration: InputDecoration(
-          labelText: 'Kullanıcı Adı',
-          suffixText: '@st.biruni.edu.tr',
-          suffixStyle: TextStyle(
-            fontSize: 16.0,
-          ),
-          border: OutlineInputBorder(),
+          labelText: userNameText,
+          suffixText: emailText,
+          suffixStyle: emailTextStyle,
+          border: const OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue, width: 2.0),
+            borderSide: BorderSide(color: normalBlue, width: 2.0),
           ),
-          prefixIcon: Icon(Icons.person),
+          prefixIcon: const Icon(Icons.person),
         ),
       ),
+    );
+  }
+}
+
+//* Appbar Text
+class AppBarText extends StatefulWidget {
+  const AppBarText(
+      {super.key, required this.textType, required this.appBarStyle});
+
+  final String textType;
+  final TextStyle appBarStyle;
+
+  @override
+  State<AppBarText> createState() => _AppBarTextState();
+}
+
+class _AppBarTextState extends State<AppBarText> {
+  @override
+  Widget build(BuildContext context) {
+    return Text(widget.textType, style: widget.appBarStyle);
+  }
+}
+
+//* üye ol
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          'Hesabınız yok mu?',
+          style: TextStyle(fontSize: 17),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: const Text(
+            'Hemen Üye Olun!',
+            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ],
     );
   }
 }
