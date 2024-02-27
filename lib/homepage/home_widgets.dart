@@ -42,23 +42,24 @@ class _HomeTestState extends State<HomeTest> with ColorsUtility, IconUtility {
                         alignment: Alignment.topCenter,
                         children: [
                           Card(
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: appBlue),
-                                  height: screenHeight * 0.07,
-                                  width: screenWidth * 0.41,
-                                  child: Center(
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      child: Text('Kaydedilenler',
-                                          style: TextStyle(
-                                              color: whiteColor,
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold)),
-                                    ),
-                                  ))),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: appBlue),
+                              height: screenHeight * 0.07,
+                              width: screenWidth * 0.41,
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: Text('Kaydedilenler',
+                                      style: TextStyle(
+                                          color: whiteColor,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                              ),
+                            ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(top: 45),
                             child: Card(
