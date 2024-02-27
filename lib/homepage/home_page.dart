@@ -11,34 +11,42 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with ColorsUtility, AppBarTextStyle {
+class _HomePageState extends State<HomePage>
+    with ColorsUtility, AppBarTextStyle {
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height; //* Cihaz uygunluğu
-    const double topMarginPercentage = 0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
+    final double screenHeight =
+        MediaQuery.of(context).size.height; //* Cihaz uygunluğu
+    const double topMarginPercentage =
+        0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
 
     const String userName = "Adil Sain";
     const String departmentName = "Bilgisayar Mühendisliği";
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(screenHeight * 0.19),
-          child: AppBar(
-              automaticallyImplyLeading: false,
-              backgroundColor: appBlue,
-              flexibleSpace: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                      margin: EdgeInsets.only(top: screenHeight * topMarginPercentage),
-                      child: Column(children: [
-                        AppBarText(textType: userName, appBarStyle: titleStyle),
-                        AppBarText(textType: departmentName, appBarStyle: subTitleStyle),
-                      ]))
-                ],
-              ))),
-      body: Container(
-        child: const HomeTest(),
+        preferredSize: Size.fromHeight(screenHeight * 0.19),
+        child: AppBar(
+          actions: [HelpIcon(), AccountIcon()],
+          backgroundColor: appBlue,
+          flexibleSpace: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin:
+                    EdgeInsets.only(top: screenHeight * topMarginPercentage),
+                child: Column(
+                  children: [
+                    AppBarText(textType: userName, appBarStyle: titleStyle),
+                    AppBarText(
+                        textType: departmentName, appBarStyle: subTitleStyle),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
+      body: HomeTest(),
     );
   }
 }

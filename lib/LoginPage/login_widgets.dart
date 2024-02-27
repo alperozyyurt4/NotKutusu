@@ -14,7 +14,8 @@ const passwordText = 'Şifre';
 const emailText = '@st.biruni.edu.tr';
 const loginText = 'Giriş Yap';
 
-class GirisYap extends StatelessWidget with ColorsUtility, LoginWidgetsTextStyle {
+class GirisYap extends StatelessWidget
+    with ColorsUtility, LoginWidgetsTextStyle {
   GirisYap({super.key});
 
   @override
@@ -64,7 +65,8 @@ class Sifre extends StatelessWidget with ColorsUtility {
 }
 
 //* Kullini Adi
-class KullaniciAdi extends StatelessWidget with ColorsUtility, LoginWidgetsTextStyle {
+class KullaniciAdi extends StatelessWidget
+    with ColorsUtility, LoginWidgetsTextStyle {
   KullaniciAdi({super.key});
 
   @override
@@ -90,7 +92,8 @@ class KullaniciAdi extends StatelessWidget with ColorsUtility, LoginWidgetsTextS
 
 //* Appbar Text
 class AppBarText extends StatefulWidget {
-  const AppBarText({super.key, required this.textType, required this.appBarStyle});
+  const AppBarText(
+      {super.key, required this.textType, required this.appBarStyle});
 
   final String textType;
   final TextStyle appBarStyle;
