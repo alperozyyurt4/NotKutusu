@@ -11,14 +11,11 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with ColorsUtility, AppBarTextStyle {
+class _HomePageState extends State<HomePage> with ColorsUtility, AppBarTextStyle {
   @override
   Widget build(BuildContext context) {
-    final double screenHeight =
-        MediaQuery.of(context).size.height; //* Cihaz uygunluğu
-    const double topMarginPercentage =
-        0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
+    final double screenHeight = MediaQuery.of(context).size.height; //* Cihaz uygunluğu
+    const double topMarginPercentage = 0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
 
     const String userName = "Adil Sain";
     const String departmentName = "Bilgisayar Mühendisliği";
@@ -32,13 +29,11 @@ class _HomePageState extends State<HomePage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin:
-                    EdgeInsets.only(top: screenHeight * topMarginPercentage),
+                margin: EdgeInsets.only(top: screenHeight * topMarginPercentage),
                 child: Column(
                   children: [
                     AppBarText(textType: userName, appBarStyle: titleStyle),
-                    AppBarText(
-                        textType: departmentName, appBarStyle: subTitleStyle),
+                    AppBarText(textType: departmentName, appBarStyle: subTitleStyle),
                   ],
                 ),
               ),
@@ -46,7 +41,37 @@ class _HomePageState extends State<HomePage>
           ),
         ),
       ),
-      body: HomeTest(),
+      body: Container(
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 30),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 15),
+                    child: DersAra(),
+                  ),
+                  NotAraButton(),
+                ],
+              ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                HomePageCard(
+                    cardName: 'Kaydedilenler',
+                    callback: () {},
+                    cardIcon: Icon(Icons.stars, size: 55, color: whiteColor)),
+                HomePageCard(
+                    cardName: 'Not Ekle',
+                    callback: () {},
+                    cardIcon: Icon(Icons.control_point, size: 55, color: whiteColor)),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }

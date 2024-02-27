@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:notkutusu/loginpage/login_page.dart';
+import 'package:notkutusu/LoginPage/login_page.dart';
 
 void main() {
   runApp(const MyApp());
