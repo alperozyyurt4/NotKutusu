@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:notkutusu/LoginPage/login_widgets.dart';
 import 'package:notkutusu/loginpage/info_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -11,14 +12,12 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    final double screenHeight =
-        MediaQuery.of(context).size.height; // Cihaz uygunluğu
-    final double topMarginPercentage =
-        0.05; // Üstten mesafe yüzde olarak ayarlanabilir
+    final double screenHeight = MediaQuery.of(context).size.height; // Cihaz uygunluğu
+    const double topMarginPercentage = 0.05; // Üstten mesafe yüzde olarak ayarlanabilir
 
     // Text isim değişkenleri
-    final String appBarText1 = "Biruni Üniversitesi";
-    final String appBarText2 = "Not Kutusu";
+    const String appBarText1 = "Biruni Üniversitesi";
+    const String appBarText2 = "Not Kutusu";
 
     return Scaffold(
       appBar: PreferredSize(
@@ -32,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
                   MaterialPageRoute(builder: (context) => InfoPage()),
                 );
               },
-              icon: Icon(Icons.info),
+              icon: const Icon(Icons.info),
               color: Colors.white,
               iconSize: 35.0,
             )
@@ -42,9 +41,8 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin:
-                    EdgeInsets.only(top: screenHeight * topMarginPercentage),
-                child: Column(
+                margin: EdgeInsets.only(top: screenHeight * topMarginPercentage),
+                child: const Column(
                   children: [
                     Text(
                       appBarText1,
@@ -66,13 +64,18 @@ class _LoginPageState extends State<LoginPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                child: Image.asset('assets/biruni.logo.jpg'),
+              SizedBox(
                 height: 120,
                 width: 150,
+                child: Image.asset('assets/biruni.logo.jpg'),
               ),
             ],
           ),
+          KullaniciAdi(),
+          const SizedBox(height: 15),
+          Sifre(),
+          const SizedBox(height: 15),
+          GirisYap()
         ],
       ),
     );

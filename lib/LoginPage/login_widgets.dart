@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 
 class GirisYap extends StatelessWidget {
-  const GirisYap({
-    super.key,
-    required TextEditingController usernameController,
-    required TextEditingController passwordController,
-  })  : _usernameController = usernameController,
-        _passwordController = passwordController;
-
-  final TextEditingController _usernameController;
-  final TextEditingController _passwordController;
+  GirisYap({super.key});
+  final userNameController = TextEditingController();
+  final passwordNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        String username = _usernameController.text;
-        String password = _passwordController.text;
+        String username = KullaniciAdi().userNameController.text;
+        String password = Sifre().passwordController.text;
         print('Kullanıcı Adı: $username');
         print('Şifre: $password');
       },
@@ -25,7 +19,7 @@ class GirisYap extends StatelessWidget {
         foregroundColor: Colors.white,
         padding: const EdgeInsets.symmetric(horizontal: 155, vertical: 15),
       ),
-      child: Text(
+      child: const Text(
         'Giriş Yap',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
       ),
@@ -34,20 +28,17 @@ class GirisYap extends StatelessWidget {
 }
 
 class Sifre extends StatelessWidget {
-  const Sifre({
-    super.key,
-    required TextEditingController passwordController,
-  }) : _passwordController = passwordController;
+  Sifre({super.key});
 
-  final TextEditingController _passwordController;
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextField(
-        controller: _passwordController,
-        decoration: InputDecoration(
+        controller: passwordController,
+        decoration: const InputDecoration(
           labelText: 'Şifre',
           border: OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(
@@ -62,20 +53,16 @@ class Sifre extends StatelessWidget {
 }
 
 class KullaniciAdi extends StatelessWidget {
-  const KullaniciAdi({
-    super.key,
-    required TextEditingController usernameController,
-  }) : _usernameController = usernameController;
+  KullaniciAdi({super.key});
 
-  final TextEditingController _usernameController;
-
+  final userNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 20, right: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextField(
-        controller: _usernameController,
-        decoration: InputDecoration(
+        controller: userNameController,
+        decoration: const InputDecoration(
           labelText: 'Kullanıcı Adı',
           suffixText: '@st.biruni.edu.tr',
           suffixStyle: TextStyle(
