@@ -6,4 +6,6 @@ mixin ColorsUtility {
   Color whiteColor = Colors.white;
 
   Color normalBlue = Colors.blue;
+
+  Color normalRed = Colors.red;
 }
