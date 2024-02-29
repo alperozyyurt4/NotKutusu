@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notkutusu/Sing/sing_page.dart';
 import 'package:notkutusu/app_page.dart';
 import 'package:notkutusu/constant/color_utility.dart';
 import 'package:notkutusu/constant/text_style.dart';
@@ -14,7 +15,8 @@ const passwordText = 'Şifre';
 const emailText = '@st.biruni.edu.tr';
 const loginText = 'Giriş Yap';
 
-class GirisYap extends StatelessWidget with ColorsUtility, LoginWidgetsTextStyle {
+class GirisYap extends StatelessWidget
+    with ColorsUtility, LoginWidgetsTextStyle {
   GirisYap({super.key});
 
   @override
@@ -64,7 +66,8 @@ class Sifre extends StatelessWidget with ColorsUtility {
 }
 
 //* Kullini Adi
-class KullaniciAdi extends StatelessWidget with ColorsUtility, LoginWidgetsTextStyle {
+class KullaniciAdi extends StatelessWidget
+    with ColorsUtility, LoginWidgetsTextStyle {
   KullaniciAdi({super.key});
 
   @override
@@ -90,7 +93,8 @@ class KullaniciAdi extends StatelessWidget with ColorsUtility, LoginWidgetsTextS
 
 //* Appbar Text
 class AppBarText extends StatefulWidget {
-  const AppBarText({super.key, required this.textType, required this.appBarStyle});
+  const AppBarText(
+      {super.key, required this.textType, required this.appBarStyle});
 
   final String textType;
   final TextStyle appBarStyle;
@@ -125,7 +129,9 @@ class _SignUpState extends State<SignUp> {
           style: TextStyle(fontSize: 17),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            NavigatorPage(context, page: const SingPage());
+          },
           child: const Text(
             'Hemen Üye Olun!',
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
