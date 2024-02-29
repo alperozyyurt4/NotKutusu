@@ -1,23 +1,26 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:notkutusu/Sing/sing_page.dart';
-import 'package:notkutusu/app_page.dart';
+import 'package:notkutusu/SingUp/singup_page.dart';
 import 'package:notkutusu/constant/color_utility.dart';
 import 'package:notkutusu/constant/text_style.dart';
 import 'package:notkutusu/functions/navi_func.dart';
+import 'package:notkutusu/services/email_verify.dart';
 
 //* Global controllers hepsi için baştan tanımlamaya gerek kalmadı
 final userNameController = TextEditingController();
 final passwordController = TextEditingController();
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 //* Global textler
 const userNameText = 'Kullanıcı Adı';
 const passwordText = 'Şifre';
-const emailText = '@st.biruni.edu.tr';
+// const emailText = '@st.biruni.edu.tr';
 const loginText = 'Giriş Yap';
 
-class GirisYap extends StatelessWidget
-    with ColorsUtility, LoginWidgetsTextStyle {
-  GirisYap({super.key});
+//* Login Button
+// ignore: must_be_immutable
+class LoginButton extends StatelessWidget with ColorsUtility, LoginWidgetsTextStyle {
+  LoginButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class GirisYap extends StatelessWidget
         String password = passwordController.text;
         print('$userNameText: $username');
         print('$password: $password');
-        NavigatorPage(context, page: const AppPage());
+        loginFunction(context, userNameController, passwordController, _auth);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: appBlue,
@@ -40,8 +43,9 @@ class GirisYap extends StatelessWidget
 }
 
 //* Şifre
-class Sifre extends StatelessWidget with ColorsUtility {
-  Sifre({super.key});
+// ignore: must_be_immutable
+class PasswordTextField extends StatelessWidget with ColorsUtility {
+  PasswordTextField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +69,10 @@ class Sifre extends StatelessWidget with ColorsUtility {
   }
 }
 
-//* Kullini Adi
-class KullaniciAdi extends StatelessWidget
-    with ColorsUtility, LoginWidgetsTextStyle {
-  KullaniciAdi({super.key});
+//* Kullanıcı Adı
+// ignore: must_be_immutable
+class UserNameTextField extends StatelessWidget with ColorsUtility, LoginWidgetsTextStyle {
+  UserNameTextField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +82,8 @@ class KullaniciAdi extends StatelessWidget
         controller: userNameController,
         decoration: InputDecoration(
           labelText: userNameText,
-          suffixText: emailText,
-          suffixStyle: emailTextStyle,
+          // suffixText: emailText,
+          // suffixStyle: emailTextStyle,
           border: const OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: normalBlue, width: 2.0),
@@ -93,8 +97,7 @@ class KullaniciAdi extends StatelessWidget
 
 //* Appbar Text
 class AppBarText extends StatefulWidget {
-  const AppBarText(
-      {super.key, required this.textType, required this.appBarStyle});
+  const AppBarText({super.key, required this.textType, required this.appBarStyle});
 
   final String textType;
   final TextStyle appBarStyle;
@@ -110,15 +113,15 @@ class _AppBarTextState extends State<AppBarText> {
   }
 }
 
-//* üye ol
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+//* Hemen Üye Ol
+class SignUpTextButton extends StatefulWidget {
+  const SignUpTextButton({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignUpTextButton> createState() => _SignUpTextButtonState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignUpTextButtonState extends State<SignUpTextButton> {
   @override
   Widget build(BuildContext context) {
     return Row(
