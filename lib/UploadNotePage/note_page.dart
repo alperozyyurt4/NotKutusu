@@ -1,12 +1,10 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:notkutusu/LoginPage/login_widgets.dart';
 import 'package:notkutusu/constant/color_utility.dart';
 import 'package:notkutusu/constant/text_style.dart';
-import 'package:image_picker/image_picker.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
@@ -16,7 +14,7 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
-  List<XFile?> _imageFileList = [];
+  final List<XFile?> _imageFileList = [];
 
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
@@ -33,10 +31,8 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight =
-        MediaQuery.of(context).size.height; //* Cihaz uygunluğu
-    const double topMarginPercentage =
-        0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
+    final double screenHeight = MediaQuery.of(context).size.height; //* Cihaz uygunluğu
+    const double topMarginPercentage = 0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
 
     const String userName = "Adil Sain";
     const String departmentName = "Bilgisayar Mühendisliği";
@@ -59,13 +55,11 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin:
-                    EdgeInsets.only(top: screenHeight * topMarginPercentage),
+                margin: EdgeInsets.only(top: screenHeight * topMarginPercentage),
                 child: Column(
                   children: [
                     AppBarText(textType: userName, appBarStyle: titleStyle),
-                    AppBarText(
-                        textType: departmentName, appBarStyle: subTitleStyle),
+                    AppBarText(textType: departmentName, appBarStyle: subTitleStyle),
                   ],
                 ),
               ),
@@ -82,7 +76,7 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
               children: [
                 Column(
                   children: [
-                    Text('Okuduğunuz bölümü seçiniz ?'),
+                    const Text('Okuduğunuz bölümü seçiniz ?'),
                     DropdownMenu<String>(
                       width: 350,
                       initialSelection: list.first,
@@ -92,10 +86,8 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
                           dropdownValue = value!;
                         });
                       },
-                      dropdownMenuEntries:
-                          list.map<DropdownMenuEntry<String>>((String value) {
-                        return DropdownMenuEntry<String>(
-                            value: value, label: value);
+                      dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
+                        return DropdownMenuEntry<String>(value: value, label: value);
                       }).toList(),
                     ),
                   ],
@@ -107,7 +99,7 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
               children: [
                 Column(
                   children: [
-                    Text('Okuduğunuz sınıfı seçiniz ?'),
+                    const Text('Okuduğunuz sınıfı seçiniz ?'),
                     DropdownMenu<String>(
                       width: 350,
                       initialSelection: list1.first,
@@ -117,10 +109,8 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
                           dropdownValue1 = value!;
                         });
                       },
-                      dropdownMenuEntries:
-                          list1.map<DropdownMenuEntry<String>>((String value) {
-                        return DropdownMenuEntry<String>(
-                            value: value, label: value);
+                      dropdownMenuEntries: list1.map<DropdownMenuEntry<String>>((String value) {
+                        return DropdownMenuEntry<String>(value: value, label: value);
                       }).toList(),
                     ),
                   ],
@@ -132,7 +122,7 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
               children: [
                 Column(
                   children: [
-                    Text('Dersin kodunu seçiniz ?'),
+                    const Text('Dersin kodunu seçiniz ?'),
                     DropdownMenu<String>(
                       width: 350,
                       initialSelection: list2.first,
@@ -142,56 +132,59 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
                           dropdownValue2 = value!;
                         });
                       },
-                      dropdownMenuEntries:
-                          list2.map<DropdownMenuEntry<String>>((String value) {
-                        return DropdownMenuEntry<String>(
-                            value: value, label: value);
+                      dropdownMenuEntries: list2.map<DropdownMenuEntry<String>>((String value) {
+                        return DropdownMenuEntry<String>(value: value, label: value);
                       }).toList(),
                     ),
                   ],
                 ),
               ],
             ),
-            Column(
-              children: List.generate(_imageFileList.length, (index) {
-                final imageFile = _imageFileList[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      imageFile == null
-                          ? Text('Resim Seçilmedi')
-                          : Image.file(
-                              File(imageFile.path),
-                              width: MediaQuery.of(context).size.width * 0.15,
-                              height: MediaQuery.of(context).size.height * 0.15,
-                            ),
-                      SizedBox(height: 8),
-                      Text(imageFile == null
-                          ? ''
-                          : imageFile.path.split('/').last),
-                      ElevatedButton(
-                        onPressed: () {
-                          _removeImage(index);
-                        },
-                        child: Text('Sil'),
-                      ),
-                    ],
-                  ),
-                );
-              }),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(_imageFileList.length, (index) {
+                  final imageFile = _imageFileList[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        if (imageFile != null)
+                          Column(
+                            children: [
+                              Image.file(
+                                File(imageFile.path),
+                                width: MediaQuery.of(context).size.width * 0.15,
+                                height: MediaQuery.of(context).size.height * 0.15,
+                              ),
+                              const SizedBox(height: 8),
+                              // ignore: unnecessary_null_comparison
+                              Text(imageFile == null ? '' : imageFile.path.split('/').last),
+                              ElevatedButton(
+                                onPressed: () {
+                                  _removeImage(index);
+                                },
+                                child: const Text('Sil'),
+                              ),
+                            ],
+                          ),
+                      ],
+                    ),
+                  );
+                }),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
                 _pickImage(ImageSource.gallery);
               },
-              child: Text('Galeriden Resim Seç'),
+              child: const Text('Galeriden Resim Seç'),
             ),
             ElevatedButton(
               onPressed: () {
                 _pickImage(ImageSource.camera);
               },
-              child: Text('Kameradan Resim Çek'),
+              child: const Text('Kameradan Resim Çek'),
             ),
           ],
         ),
