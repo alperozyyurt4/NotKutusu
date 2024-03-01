@@ -16,12 +16,18 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
-  XFile? _imageFile;
+  List<XFile?> _imageFileList = [];
 
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
     setState(() {
-      _imageFile = pickedFile;
+      _imageFileList.add(pickedFile);
+    });
+  }
+
+  void _removeImage(int index) {
+    setState(() {
+      _imageFileList.removeAt(index);
     });
   }
 
@@ -147,23 +153,45 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
               ],
             ),
             Column(
-              children: [
-                _imageFile == null
-                    ? Text('Resim Seçilmedi')
-                    : Image.file(File(_imageFile!.path)),
-                ElevatedButton(
-                  onPressed: () {
-                    _pickImage(ImageSource.gallery);
-                  },
-                  child: Text('Galeriden Resim Seç'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    _pickImage(ImageSource.camera);
-                  },
-                  child: Text('Kameradan Resim Çek'),
-                ),
-              ],
+              children: List.generate(_imageFileList.length, (index) {
+                final imageFile = _imageFileList[index];
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      imageFile == null
+                          ? Text('Resim Seçilmedi')
+                          : Image.file(
+                              File(imageFile.path),
+                              width: MediaQuery.of(context).size.width * 0.15,
+                              height: MediaQuery.of(context).size.height * 0.15,
+                            ),
+                      SizedBox(height: 8),
+                      Text(imageFile == null
+                          ? ''
+                          : imageFile.path.split('/').last),
+                      ElevatedButton(
+                        onPressed: () {
+                          _removeImage(index);
+                        },
+                        child: Text('Sil'),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _pickImage(ImageSource.gallery);
+              },
+              child: Text('Galeriden Resim Seç'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _pickImage(ImageSource.camera);
+              },
+              child: Text('Kameradan Resim Çek'),
             ),
           ],
         ),
