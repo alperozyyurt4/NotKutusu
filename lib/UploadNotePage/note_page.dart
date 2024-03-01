@@ -160,11 +160,11 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
                               const SizedBox(height: 8),
                               // ignore: unnecessary_null_comparison
                               Text(imageFile == null ? '' : imageFile.path.split('/').last),
-                              ElevatedButton(
+                              IconButton(
                                 onPressed: () {
                                   _removeImage(index);
                                 },
-                                child: const Text('Sil'),
+                                icon: const Icon(Icons.delete),
                               ),
                             ],
                           ),
@@ -174,18 +174,31 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
                 }),
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                _pickImage(ImageSource.gallery);
-              },
-              child: const Text('Galeriden Resim Seç'),
+            Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    color: Colors.green,
+                    iconSize: MediaQuery.of(context).size.height * 0.07,
+                    onPressed: () {
+                      _pickImage(ImageSource.gallery);
+                    },
+                    icon: const Icon(Icons.photo),
+                  ),
+                  IconButton(
+                    iconSize: MediaQuery.of(context).size.height * 0.07,
+                    color: Colors.green,
+                    onPressed: () {
+                      _pickImage(ImageSource.camera);
+                    },
+                    icon: const Icon(Icons.camera_alt),
+                  ),
+                ],
+              ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                _pickImage(ImageSource.camera);
-              },
-              child: const Text('Kameradan Resim Çek'),
-            ),
+            ElevatedButton(onPressed: () {}, child: const Text('Kaydet'))
           ],
         ),
       ),
