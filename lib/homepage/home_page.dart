@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notkutusu/LoginPage/login_widgets.dart';
-import 'package:notkutusu/NotePage/note_page.dart';
+import 'package:notkutusu/UploadNotePage/note_page.dart';
 import 'package:notkutusu/constant/color_utility.dart';
 import 'package:notkutusu/constant/text_style.dart';
 import 'package:notkutusu/functions/navi_func.dart';
@@ -13,14 +13,11 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with ColorsUtility, AppBarTextStyle {
+class _HomePageState extends State<HomePage> with ColorsUtility, AppBarTextStyle {
   @override
   Widget build(BuildContext context) {
-    final double screenHeight =
-        MediaQuery.of(context).size.height; //* Cihaz uygunluğu
-    const double topMarginPercentage =
-        0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
+    final double screenHeight = MediaQuery.of(context).size.height; //* Cihaz uygunluğu
+    const double topMarginPercentage = 0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
 
     const String userName = "Adil Sain";
     const String departmentName = "Bilgisayar Mühendisliği";
@@ -34,13 +31,11 @@ class _HomePageState extends State<HomePage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin:
-                    EdgeInsets.only(top: screenHeight * topMarginPercentage),
+                margin: EdgeInsets.only(top: screenHeight * topMarginPercentage),
                 child: Column(
                   children: [
                     AppBarText(textType: userName, appBarStyle: titleStyle),
-                    AppBarText(
-                        textType: departmentName, appBarStyle: subTitleStyle),
+                    AppBarText(textType: departmentName, appBarStyle: subTitleStyle),
                   ],
                 ),
               ),
@@ -73,10 +68,9 @@ class _HomePageState extends State<HomePage>
                 HomePageCard(
                     cardName: 'Not Ekle',
                     callback: () {
-                      NavigatorPage(context, page: AddPage());
+                      NavigatorPage(context, page: const AddPage());
                     },
-                    cardIcon:
-                        Icon(Icons.control_point, size: 55, color: whiteColor)),
+                    cardIcon: Icon(Icons.control_point, size: 55, color: whiteColor)),
               ],
             )
           ],
