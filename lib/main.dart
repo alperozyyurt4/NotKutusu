@@ -6,6 +6,7 @@ import 'package:notkutusu/LoginPage/login_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  print('Firebase bağlandı');
   runApp(const MyApp());
 }
 
