@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:notkutusu/app_page.dart';
 import 'package:notkutusu/functions/navi_func.dart';
-import 'package:notkutusu/homepage/home_page.dart';
 
 Future<void> loginFunction(BuildContext context, TextEditingController emailController,
     TextEditingController passwordController, FirebaseAuth auth) async {
@@ -21,7 +21,7 @@ Future<void> loginFunction(BuildContext context, TextEditingController emailCont
         emailController.clear();
         passwordController.clear();
         // Örneğin:
-        NavigatorPage(context, page: const HomePage());
+        NavigatorPage(context, page: const AppPage());
       } else {
         print('E-posta onaylanmadığı için giriş yapılamadı.');
         // Kullanıcı e-posta doğrulama işlemini tamamlamamışsa, uyarı verebilirsiniz.
