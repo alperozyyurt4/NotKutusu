@@ -175,7 +175,7 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.only(top: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
