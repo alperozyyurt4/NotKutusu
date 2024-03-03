@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:notkutusu/constant/color_utility.dart';
 import 'package:notkutusu/constant/text_style.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
@@ -40,9 +40,8 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
           File imageFile = File(selectedImage.path);
 
           // Firebase Storage referansı
-          Reference storageReference = FirebaseStorage.instance
-              .ref()
-              .child('images/${DateTime.now().millisecondsSinceEpoch}_$i.jpg');
+          Reference storageReference =
+              FirebaseStorage.instance.ref().child('images/${DateTime.now().millisecondsSinceEpoch}_$i.jpg');
 
           // Dosyayı Firebase Storage'a yükleyin
           await storageReference.putFile(imageFile);
@@ -97,10 +96,8 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight =
-        MediaQuery.of(context).size.height; //* Cihaz uygunluğu
-    const double topMarginPercentage =
-        0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
+    final double screenHeight = MediaQuery.of(context).size.height; //* Cihaz uygunluğu
+    const double topMarginPercentage = 0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
 
     const String appBarName = "N O T | E K L E";
 
@@ -110,9 +107,10 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
 
     const List<String> list2 = <String>['Enes', 'Adil', 'Alper', 'Gotik'];
 
+    int number = 1;
     return Scaffold(
       appBar: AppBar(
-        title: Text('N O T | E K L E'),
+        title: const Text('N O T | E K L E'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -133,10 +131,8 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
                           dropdownValue = value!;
                         });
                       },
-                      dropdownMenuEntries:
-                          list.map<DropdownMenuEntry<String>>((String value) {
-                        return DropdownMenuEntry<String>(
-                            value: value, label: value);
+                      dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
+                        return DropdownMenuEntry<String>(value: value, label: value);
                       }).toList(),
                     ),
                   ],
@@ -158,10 +154,8 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
                           dropdownValue1 = value!;
                         });
                       },
-                      dropdownMenuEntries:
-                          list1.map<DropdownMenuEntry<String>>((String value) {
-                        return DropdownMenuEntry<String>(
-                            value: value, label: value);
+                      dropdownMenuEntries: list1.map<DropdownMenuEntry<String>>((String value) {
+                        return DropdownMenuEntry<String>(value: value, label: value);
                       }).toList(),
                     ),
                   ],
@@ -183,10 +177,8 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
                           dropdownValue2 = value!;
                         });
                       },
-                      dropdownMenuEntries:
-                          list2.map<DropdownMenuEntry<String>>((String value) {
-                        return DropdownMenuEntry<String>(
-                            value: value, label: value);
+                      dropdownMenuEntries: list2.map<DropdownMenuEntry<String>>((String value) {
+                        return DropdownMenuEntry<String>(value: value, label: value);
                       }).toList(),
                     ),
                   ],
@@ -205,17 +197,26 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
                         if (imageFile != null)
                           Column(
                             children: [
-                              Image.file(
-                                File(imageFile.path),
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.15,
+                              InkWell(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (_) => Dialog(
+                                      child: Image.file(
+                                        File(imageFile.path),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Image.file(
+                                  File(imageFile.path),
+                                  width: MediaQuery.of(context).size.width * 0.15,
+                                  height: MediaQuery.of(context).size.height * 0.15,
+                                ),
                               ),
                               const SizedBox(height: 8),
                               // ignore: unnecessary_null_comparison
-                              Text(imageFile == null
-                                  ? ''
-                                  : imageFile.path.split('/').last),
+                              Text(imageFile == null ? '' : "${number++}. resim"),
                               IconButton(
                                 onPressed: () {
                                   _removeImage(index);
@@ -262,7 +263,7 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
               onPressed: () {
                 _uploadImage();
               },
-              child: Text('Resmi Yükle'),
+              child: const Text('Resmi Yükle'),
             ),
           ],
         ),
