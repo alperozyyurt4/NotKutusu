@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:notkutusu/LoginPage/login_widgets.dart';
 import 'package:notkutusu/RecordedNotes/recordedNotes_page.dart';
 import 'package:notkutusu/UploadNotePage/note_page.dart';
-import 'package:notkutusu/components/my_drawer.dart';
 import 'package:notkutusu/constant/color_utility.dart';
 import 'package:notkutusu/constant/text_style.dart';
 import 'package:notkutusu/functions/navi_func.dart';
+import 'package:notkutusu/homepage/drawer/my_drawer.dart';
 import 'package:notkutusu/homepage/home_widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,14 +14,11 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with ColorsUtility, AppBarTextStyle {
+class _HomePageState extends State<HomePage> with ColorsUtility, AppBarTextStyle {
   @override
   Widget build(BuildContext context) {
-    final double screenHeight =
-        MediaQuery.of(context).size.height; //* Cihaz uygunluğu
-    const double topMarginPercentage =
-        0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
+    final double screenHeight = MediaQuery.of(context).size.height; //* Cihaz uygunluğu
+    const double topMarginPercentage = 0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
 
     return Scaffold(
       appBar: AppBar(
@@ -54,7 +50,7 @@ class _HomePageState extends State<HomePage>
                 HomePageCard(
                     cardName: 'Kaydedilenler',
                     callback: () {
-                      NavigatorPage(context, page: ImageCard());
+                      NavigatorPage(context, page: const ImageCard());
                     },
                     cardIcon: Icon(Icons.stars, size: 55, color: whiteColor)),
                 HomePageCard(
@@ -62,8 +58,7 @@ class _HomePageState extends State<HomePage>
                     callback: () {
                       NavigatorPage(context, page: const AddPage());
                     },
-                    cardIcon:
-                        Icon(Icons.control_point, size: 55, color: whiteColor)),
+                    cardIcon: Icon(Icons.control_point, size: 55, color: whiteColor)),
               ],
             )
           ],
