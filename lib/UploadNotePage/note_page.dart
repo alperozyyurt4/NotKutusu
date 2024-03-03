@@ -1,10 +1,11 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:notkutusu/LoginPage/login_widgets.dart';
 import 'package:notkutusu/constant/color_utility.dart';
 import 'package:notkutusu/constant/text_style.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
@@ -14,13 +15,78 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
+  String imageUrl = '';
   final List<XFile?> _imageFileList = [];
+  String dropdownValue1 = '';
+  String dropdownValue = '';
+  String dropdownValue2 = '';
 
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
     setState(() {
       _imageFileList.add(pickedFile);
     });
+  }
+
+  Future<void> _uploadImage() async {
+    if (_imageFileList.isEmpty) {
+      return; // Yüklenecek görsel yok
+    }
+
+    try {
+      for (int i = 0; i < _imageFileList.length; i++) {
+        if (_imageFileList[i] != null) {
+          XFile selectedImage = _imageFileList[i]!;
+          File imageFile = File(selectedImage.path);
+
+          // Firebase Storage referansı
+          Reference storageReference = FirebaseStorage.instance
+              .ref()
+              .child('images/${DateTime.now().millisecondsSinceEpoch}_$i.jpg');
+
+          // Dosyayı Firebase Storage'a yükleyin
+          await storageReference.putFile(imageFile);
+
+          // Yüklenen görselin indirme URL'sini alın
+          String downloadURL = await storageReference.getDownloadURL();
+
+          setState(() {
+            imageUrl = downloadURL;
+          });
+
+          // Firestore'a bölümü, sınıfı ve dersin kodunu ekleyin
+          await _addNote(
+            imageUrl,
+            dropdownValue,
+            dropdownValue1,
+            dropdownValue2,
+          );
+
+          print('Görsel $i ve not bilgileri yüklendi. İndirme URL: $imageUrl');
+        }
+      }
+    } catch (e) {
+      print('Görsel yüklenirken hata oluştu: $e');
+    }
+  }
+
+  Future<void> _addNote(
+    String imageUrl,
+    String section,
+    String grade,
+    String courseCode,
+  ) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').add({
+        'imageUrl': imageUrl,
+        'section': section,
+        'grade': grade,
+        'courseCode': courseCode,
+      });
+      print('Not başarıyla eklendi.');
+    } catch (e) {
+      print('Not eklenirken hata oluştu: $e');
+    }
   }
 
   void _removeImage(int index) {
@@ -31,41 +97,22 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height; //* Cihaz uygunluğu
-    const double topMarginPercentage = 0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
+    final double screenHeight =
+        MediaQuery.of(context).size.height; //* Cihaz uygunluğu
+    const double topMarginPercentage =
+        0.05; //* Üstten mesafe yüzde olarak ayarlanabilir
 
-    const String userName = "Adil Sain";
-    const String departmentName = "Bilgisayar Mühendisliği";
+    const String appBarName = "N O T | E K L E";
 
     const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
-    String dropdownValue = list.first;
 
     const List<String> list1 = <String>['1', '2', '3', '4'];
-    String dropdownValue1 = list.first;
 
     const List<String> list2 = <String>['Enes', 'Adil', 'Alper', 'Gotik'];
-    String dropdownValue2 = list.first;
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(screenHeight * 0.19),
-        child: AppBar(
-          backgroundColor: appBlue,
-          flexibleSpace: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: screenHeight * topMarginPercentage),
-                child: Column(
-                  children: [
-                    AppBarText(textType: userName, appBarStyle: titleStyle),
-                    AppBarText(textType: departmentName, appBarStyle: subTitleStyle),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+      appBar: AppBar(
+        title: Text('N O T | E K L E'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -86,8 +133,10 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
                           dropdownValue = value!;
                         });
                       },
-                      dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
-                        return DropdownMenuEntry<String>(value: value, label: value);
+                      dropdownMenuEntries:
+                          list.map<DropdownMenuEntry<String>>((String value) {
+                        return DropdownMenuEntry<String>(
+                            value: value, label: value);
                       }).toList(),
                     ),
                   ],
@@ -109,8 +158,10 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
                           dropdownValue1 = value!;
                         });
                       },
-                      dropdownMenuEntries: list1.map<DropdownMenuEntry<String>>((String value) {
-                        return DropdownMenuEntry<String>(value: value, label: value);
+                      dropdownMenuEntries:
+                          list1.map<DropdownMenuEntry<String>>((String value) {
+                        return DropdownMenuEntry<String>(
+                            value: value, label: value);
                       }).toList(),
                     ),
                   ],
@@ -132,8 +183,10 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
                           dropdownValue2 = value!;
                         });
                       },
-                      dropdownMenuEntries: list2.map<DropdownMenuEntry<String>>((String value) {
-                        return DropdownMenuEntry<String>(value: value, label: value);
+                      dropdownMenuEntries:
+                          list2.map<DropdownMenuEntry<String>>((String value) {
+                        return DropdownMenuEntry<String>(
+                            value: value, label: value);
                       }).toList(),
                     ),
                   ],
@@ -155,11 +208,14 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
                               Image.file(
                                 File(imageFile.path),
                                 width: MediaQuery.of(context).size.width * 0.15,
-                                height: MediaQuery.of(context).size.height * 0.15,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.15,
                               ),
                               const SizedBox(height: 8),
                               // ignore: unnecessary_null_comparison
-                              Text(imageFile == null ? '' : imageFile.path.split('/').last),
+                              Text(imageFile == null
+                                  ? ''
+                                  : imageFile.path.split('/').last),
                               IconButton(
                                 onPressed: () {
                                   _removeImage(index);
@@ -198,7 +254,16 @@ class _AddPageState extends State<AddPage> with ColorsUtility, AppBarTextStyle {
                 ],
               ),
             ),
-            ElevatedButton(onPressed: () {}, child: const Text('Kaydet'))
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Kaydet'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _uploadImage();
+              },
+              child: Text('Resmi Yükle'),
+            ),
           ],
         ),
       ),
