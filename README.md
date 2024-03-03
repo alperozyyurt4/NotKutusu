@@ -1,4 +1,4 @@
-# notkutusu
+# notkutusuapp
 
 A new Flutter project.
 

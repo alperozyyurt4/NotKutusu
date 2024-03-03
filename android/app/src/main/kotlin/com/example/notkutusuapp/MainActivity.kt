@@ -1,4 +1,4 @@
-package com.example.notkutusu
+package com.example.notkutusuapp
 
 import io.flutter.embedding.android.FlutterActivity
 

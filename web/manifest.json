@@ -1,6 +1,6 @@
 {
-    "name": "notkutusu",
-    "short_name": "notkutusu",
+    "name": "notkutusuapp",
+    "short_name": "notkutusuapp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
