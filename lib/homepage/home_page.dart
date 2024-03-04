@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:notkutusu/RecordedNotes/recordedNotes_page.dart';
-import 'package:notkutusu/UploadNotePage/note_page.dart';
+import 'package:notkutusu/Drawer/my_drawer.dart';
+import 'package:notkutusu/KaydedilenNotlar/recordedNotes_page.dart';
+import 'package:notkutusu/NotEkle/note_page.dart';
 import 'package:notkutusu/constant/color_utility.dart';
 import 'package:notkutusu/constant/text_style.dart';
 import 'package:notkutusu/functions/navi_func.dart';
-import 'package:notkutusu/homepage/drawer/my_drawer.dart';
 import 'package:notkutusu/homepage/home_widgets.dart';
 
 class HomePage extends StatefulWidget {

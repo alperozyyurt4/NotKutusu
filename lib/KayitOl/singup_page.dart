@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:notkutusu/KayitOl/singup_widgets.dart';
 import 'package:notkutusu/LoginPage/login_widgets.dart';
-import 'package:notkutusu/SingUp/singup_widgets.dart';
 import 'package:notkutusu/constant/color_utility.dart';
 import 'package:notkutusu/constant/text_style.dart';
 

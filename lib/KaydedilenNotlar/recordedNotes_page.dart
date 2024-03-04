@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class ImageCard extends StatefulWidget {
-  const ImageCard({Key? key}) : super(key: key);
+  const ImageCard({super.key});
 
   @override
   _ImageCardState createState() => _ImageCardState();
@@ -20,8 +20,7 @@ class _ImageCardState extends State<ImageCard> {
   Future<void> loadImagesFromFirestore() async {
     try {
       // Firestore'dan verileri çekme
-      QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await FirebaseFirestore.instance.collection('users').get();
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance.collection('users').get();
 
       List<ImageData> images = querySnapshot.docs.map((doc) {
         return ImageData.fromFirestore(doc);
@@ -39,10 +38,10 @@ class _ImageCardState extends State<ImageCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('N O T L A R'),
+        title: const Text('N O T L A R'),
       ),
       body: imageList.isEmpty
-          ? CircularProgressIndicator()
+          ? const CircularProgressIndicator()
           : ListView.builder(
               itemCount: imageList.length,
               itemBuilder: (context, index) {
@@ -56,32 +55,41 @@ class _ImageCardState extends State<ImageCard> {
 class ImageCardWidget extends StatelessWidget {
   final ImageData imageData;
 
-  const ImageCardWidget({Key? key, required this.imageData}) : super(key: key);
+  const ImageCardWidget({super.key, required this.imageData});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      margin: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Image.network(
-            imageData.imageUrl,
-            width: double.infinity,
-            height: 200,
-            fit: BoxFit.cover,
-          ),
-          ListTile(
-            title: Text('Bölüm: ${imageData.section}'),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Sınıf: ${imageData.grade}'),
-                Text('Ders Kodu: ${imageData.courseCode}'),
-              ],
+    return InkWell(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (_) => Dialog(
+                  child: Image.network(imageData.imageUrl),
+                ));
+      },
+      child: Card(
+        elevation: 5,
+        margin: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Image.network(
+              imageData.imageUrl,
+              width: double.infinity,
+              height: 200,
+              fit: BoxFit.cover,
             ),
-          ),
-        ],
+            ListTile(
+              title: Text('Bölüm: ${imageData.section}'),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Sınıf: ${imageData.grade}'),
+                  Text('Ders Kodu: ${imageData.courseCode}'),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
