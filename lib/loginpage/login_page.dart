@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:notkutusu/InfoPage/info_page.dart';
 import 'package:notkutusu/LoginPage/login_widgets.dart';
 import 'package:notkutusu/constant/color_utility.dart';
 import 'package:notkutusu/constant/text_style.dart';
 import 'package:notkutusu/functions/navi_func.dart';
-import 'package:notkutusu/loginpage/info_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> with ColorsUtility, AppBarTextSty
               actions: [
                 IconButton(
                     onPressed: () {
-                      NavigatorPage(context, page: const InfoPage());
+                      NavigatorPage(context, page: InfoPage());
                     },
                     icon: const Icon(Icons.info),
                     color: whiteColor,

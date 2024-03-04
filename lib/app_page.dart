@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notkutusu/LoginPage/info_page.dart';
+import 'package:notkutusu/InfoPage/info_page.dart';
 import 'package:notkutusu/homepage/home_page.dart';
 
 class AppPage extends StatefulWidget {
@@ -12,10 +12,10 @@ class AppPage extends StatefulWidget {
 class _AppPageState extends State<AppPage> {
   @override
   Widget build(BuildContext context) {
-    return const DefaultTabController(
+    return DefaultTabController(
       length: 2,
       child: Scaffold(
-        bottomNavigationBar: BottomAppBar(
+        bottomNavigationBar: const BottomAppBar(
           elevation: 0,
           child: TabBar(
             tabs: [
@@ -25,8 +25,8 @@ class _AppPageState extends State<AppPage> {
           ),
         ),
         body: TabBarView(
-          physics: NeverScrollableScrollPhysics(),
-          children: [HomePage(), InfoPage()],
+          physics: const NeverScrollableScrollPhysics(),
+          children: [const HomePage(), InfoPage()],
         ),
       ),
     );
